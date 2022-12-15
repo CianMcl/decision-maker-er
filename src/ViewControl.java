@@ -8,52 +8,53 @@ import java.awt.event.ActionListener;
 public class ViewControl implements ActionListener {
 
     static JFrame frame;
-    static JButton button, diffButton;
+    static JButton button;
     static JPanel panel;
+    static JLabel heading;
 
 
-    public void openFrame(JPanel insert){
+
+    public void openFrame(){
         frame = new JFrame();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(800,800));
         //frame.setBounds(100,100,800,800);
-        frame.add(insert);
+
+        panel = defaultScreen();
+        frame.add(panel);
 
     }
 
-    public JPanel panelCreation(){
-        panel = new JPanel();
+
+    public JPanel defaultScreen() {
+        panel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        heading = new JLabel("Welcome to the decision maker.");
 
         button = new JButton("Click");
         button.addActionListener(new ViewControl());
 
-        panel.add(button);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 1;
+        panel.add(heading, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        panel.add(button, c);
 
         return panel;
 
     }
 
-    public JPanel diffPanel(){
-        panel = new JPanel();
-
-        diffButton = new JButton("This is now different");
-        diffButton.addActionListener(new ViewControl());
-
-        panel.add(diffButton);
-
-        return panel;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button){
+        if (e.getSource() == button) {
             JOptionPane.showMessageDialog(null, "Button!");
-            openFrame(diffPanel());
-        } else if (e.getSource() == diffButton){
-            String iono = JOptionPane.showInputDialog("Please enter?");
-            System.out.println(iono);
+
         }
     }
-
 }
