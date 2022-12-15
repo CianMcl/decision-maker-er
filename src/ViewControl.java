@@ -14,17 +14,17 @@ public class ViewControl implements ActionListener {
     static JEditorPane box;
 
 
-    public void openFrame(){
-        frame = new JFrame();
+    public void openFrame(JPanel insertPanel){
+        frame = new JFrame("The Decision Maker");
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setMinimumSize(new Dimension(800,800));
         //frame.setBounds(100,100,800,800);
 
-        panel = defaultScreen();
+        //panel = defaultScreen();
 
-        frame.add(panel);
+        frame.add(insertPanel);
 
         frame.setVisible(true);
     }
@@ -39,9 +39,13 @@ public class ViewControl implements ActionListener {
 
         box = new JEditorPane();
         box.setContentType("text/plain");
-        box.setText("Welcome to the decision maker.\nThis will make things " +
-                "simple, as long as you stick with my logic. I promise that" +
-                " it won't be unreasonable.");
+        box.setText(
+                "Welcome to the Decision Maker.\n" +
+                "This will make choices simple, as long as you stick with my logic. I \n" +
+                "promise that it won't be too unreasonable." +
+                "\n\n" +
+                "To begin, click the button below."
+        );
         box.setBounds(new Rectangle(400, 800));
         box.setEditable(false);
 
@@ -67,11 +71,28 @@ public class ViewControl implements ActionListener {
 
     }
 
+    public JPanel testScreen(){
+        panel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        heading = new JLabel("sdoiufghdf;uoishgjo");
+        heading.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weighty = 1;
+        panel.add(heading, c);
+
+        return panel;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
             JOptionPane.showMessageDialog(null, "Button!");
+            frame.dispose();
+            openFrame(testScreen());
         }
     }
 }
